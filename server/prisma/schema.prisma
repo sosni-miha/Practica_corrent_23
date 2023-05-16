@@ -34,4 +34,10 @@ model PC {
 }
 
 
+model Test {
+  id          String           @id @default(uuid())
+  firstName   String
+  lastName    String
+}
+
 

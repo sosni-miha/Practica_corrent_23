@@ -3,7 +3,7 @@ const router = Router()
 
 const users = require("../controllers/user_controller")
 router.get("/users", users.GetUser )
-router.post("/adduser")
+router.post("/adduser", users.AddUser )
 router.delete("/deluser")
 router.post("/upduser")
 
