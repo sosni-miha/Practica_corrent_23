@@ -7,10 +7,10 @@ const router = Router()
 // в круглых скобках передаются аргументы они разделяются между собой запятой
 // первый аргумент эндпоинт второй какой метод вызвать или какой функционал выполнить
 // переходим в контроллер
-const users = require("../controllers/user_controller")
-router.get("/users", users.GetUser )
-router.post("/adduser", users.AddUser )
-router.delete("/deluser", users.DelUser)
-router.post("/upduser", users.UpdateUser)
+const user_controller = require("../controllers/user_controller")
+router.get("/allUsers", user_controller.GetAllUser)
+router.post("/addUser", user_controller.AddUser )
+router.delete("/deleteUser/:id", user_controller.DeleteUser)
+router.put("/updateUser/:id", user_controller.UpdateUser)
 
 module.exports = router

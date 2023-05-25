@@ -1,23 +1,43 @@
 const { PrismaClient } = require('@prisma/client')
 
-const prisma = new PrismaClient()
+const prisma_client = new PrismaClient()
 
 
 
 class UserService {
 
-    // первым делом нужно достать из запроса нужную нам информацию с данными о пользователе
-    // вся информация хранится в body то есть чтоб к ней обратится мы пишем req.body
+
+    async GetAllUsers() {
+        return prisma_client.user.findMany();
+    }
+
     async AddUser(req) {
-        // с помощью такой конструкции мы сразу ищем в запросе нужные нам поля для юзера и записываем их в переменные
         const { firstName, lastName, email, numberPhone, position, jobPlace } = req.body;
-    
+
         try {
-            // у призмы есть много методов которые вы можете загуглить для создания используется
-            // метод create 
-            // для работы с бд используем prisma client потом выбираем таблицу с которой
-            // будем работать в нашем случаее user после этого вызываем метод что хоти сделать
-            const newUser = await prisma.user.create({
+
+            const candidateEmail = await prisma_client.user.findFirst(
+                {
+                    "where": {
+                        "email": email
+                    }
+                }
+            )
+            if (candidateEmail) {
+                return { "ERROR": "Email exist" }
+            }
+            const candidatePhone = await prisma_client.user.findFirst(
+                {
+                    "where": {
+                        "numberPhone": numberPhone
+                    }
+                }
+            )
+            if (candidatePhone) {
+                return { "ERROR": "Phone exist" }
+            }
+
+            const newUser = await prisma_client.user.create({
                 data: {
                     firstName,
                     lastName,
@@ -28,12 +48,76 @@ class UserService {
                     aboutPC: {}
                 },
             })
-            console.log(newUser)
-            //если все успешно возвращаем пользователя обратно в контроллер
             return newUser
         } catch (e) {
             console.log(e)
-            return res.json({e})
+            return res.json({ e })
+        }
+    }
+
+    async DeleteUser(req) {
+        try {
+            const id = req.params.id
+            const user = await prisma_client.user.findFirst(
+                {
+                    "where": {
+                        "id": id
+                    }
+                }
+            )
+
+            if (!user) {
+                return { "ERROR": "user not found" }
+            }
+
+            const result = await prisma_client.user.delete(
+                {
+                    "where": {
+                        "id": id
+                    }
+                }
+            )
+
+            return result
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    async UpdateUser(req) {
+        try {
+
+            const id = req.params.id
+            const { field, value } = req.body
+
+            const user = await prisma_client.user.findFirst(
+                {
+                    "where": {
+                        "id": id
+                    }
+                }
+            )
+
+            if (!user) {
+                return { "ERROR": "user not found" }
+            }
+
+            if (field === "" || value === "" || field === undefined || value === undefined) {
+                return { "ERROR": "fields length zero" }
+            }
+
+            const updateUser = await prisma_client.user.update({
+                where: {
+                    id: id,
+                },
+                data: {
+                    [field]: value,
+                },
+            })
+            return updateUser
+        } catch (e) {
+            console.log(e)
         }
     }
 }

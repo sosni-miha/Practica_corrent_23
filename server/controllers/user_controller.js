@@ -1,4 +1,4 @@
-const userService = require('../service/user_service')
+const user_service = require('../service/user_service')
 
 
 // в контролере собраны все методы для работы в данном случае с пользователем
@@ -7,30 +7,33 @@ const userService = require('../service/user_service')
 // req-то что прилетает от клиента(постман) res-ответ нашего сервера клиенту
 // next просто пока не трогайте
 class UserController {
-    async GetUser(req, res, next) {
+
+    async GetAllUser(req, res, next) {
         try {
-            res.json("WORKED")
-        } catch (e) { }
+            console.log("all")
+            res.json(await user_service.GetAllUsers())
+        } catch (e) { 
+            console.log(e)
+        }
     }
 
     async AddUser(req, res, next) {
         try {
-            res.json(await userService.AddUser(req))
-            console.log('1')
+            res.json(await user_service.AddUser(req))
         } catch (e) {
             console.log(e)
         }
     }
-    async DelUser(req, res, next) {
+    async DeleteUser(req, res, next) {
         try {
-            res.json({ "endpoint": "deluser" })
+            res.json(await user_service.DeleteUser(req))
         } catch (e) {
             res.json({ "error": "EXCEPTION" })
         }
     }
     async UpdateUser(req, res, next) {
         try {
-            res.json({ "endpoint": "upduser" })
+            res.json(await user_service.UpdateUser(req))
         } catch (e) {
             res.json({ "error": "EXCEPTION" })
         }
