@@ -1,0 +1,202 @@
+@font-face {
+  font-family: 'SanFrancisco';
+  src: local('SanFrancisco'),
+  url('./assets/fonts/SF-Pro-Display-Medium.otf') format('truetype');
+  font-weight: normal;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  background-image: url("https://escorenews.com/media/news/n41845.jpeg");
+  background-size: 100% 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .header {
+    width: calc(100% - 64px);
+    height: 70px;
+    background: hsl(61, 100%, 52%);
+    box-shadow: 0px 4px 5px #E9EDF3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px 0 32px;
+
+    button {
+      width: 200px;
+      height: 52px;
+      border: none;
+      border-radius: 4px;
+      background: #a70000;
+      color: white;
+      font-family: 'SanFrancisco';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      &:after {
+        content: url("./assets/images/add.svg");
+        margin-top: 4px;
+        margin-left: 20px;
+        margin-right: 25px;
+      }
+
+      &:hover {
+        background-color: #ff0037;
+      }
+    }
+
+    span {
+      font-family: 'SanFrancisco';
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 400;
+      color: #7c0606;
+    }
+
+    .search {
+      width: 480px;
+      height: 38px;
+      border: 1px solid rgb(255, 102, 0);
+      border-radius: 48px;
+      display: flex;
+      align-items: center;
+
+      input {
+        color: rgb(255, 102, 0);;
+        background-color: transparent;
+        font-family: 'SanFrancisco';
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        border: none;
+        outline: none;
+      }
+
+      img {
+        margin-left: 18px;
+        margin-right: 12px;
+      }
+    }
+  }
+
+  .users {
+    height: calc(100% - 100px);
+    width: 80%;
+    overflow-y: auto;
+    margin-top: 24px;
+
+
+    .user_card {
+      margin-bottom: 24px;
+      width: calc(100% - 10px);
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0px 4px 5px #E9EDF3;
+
+
+      &:hover {
+        background-color: #EAF0FA;
+
+        .delete_button {
+          background-color: #EAF0FA;
+        }
+
+        .update_button {
+          background-color: #EAF0FA;
+        }
+      }
+
+      .info {
+        display: flex;
+        justify-content: space-around;
+        width: 40%;
+
+        span {
+          font-family: 'SanFrancisco';
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          color: #122945;
+          padding-left: 24px;
+        }
+      }
+
+      .pc_info {
+        display: flex;
+        width: 40%;
+        justify-content: space-between;
+
+        span {
+          display: flex;
+          justify-content: space-around;
+          font-family: 'SanFrancisco';
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          margin-bottom: 8px;
+          color: #122945;
+        }
+
+        .left_info {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .right_info {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      .buttons {
+        width: 15%;
+        display: flex;
+        justify-content: space-between;
+
+        button {
+          width: 122px;
+          height: 40px;
+          margin: 10px;
+          font-family: 'SanFrancisco';
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          color: #002CFB;
+          border: 1px solid #002CFB;
+          border-radius: 4px;
+          background-color: white;
+        }
+
+        .update_button {
+          &:hover {
+            color: white;
+            background: #002CFB;
+          }
+        }
+
+        .delete_button {
+          border: 1px solid #EA1A4F;
+          color: #EA1A4F;
+
+          &:hover {
+            color: white;
+            background: #EA1A4F;
+          }
+        }
+      }
+    }
+  }
+}
